@@ -1,8 +1,8 @@
 ﻿<#
 .Synopsis
-   Used for hard drive encryption. Creates a code of integers.
+   Creates a PIN code of integers.
 .DESCRIPTION
-   Generate one or more random PIN codes. 
+   Generate one or more random PIN codes, by specifying the number of characters, and the count required. 
 .EXAMPLE
    Generate-Pin -Char 8
 .EXAMPLE
