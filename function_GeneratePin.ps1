@@ -17,7 +17,6 @@ function Generate-Pin
     (
         # Define number of characters to spit out, could use a Switch statement for this one. ParameterSet as well? as it needs minimum 6 characters
         [Parameter(Mandatory=$true)]
-        [ValidateRange(6,10)]
         [int]
         $Char,
 
@@ -30,25 +29,18 @@ function Generate-Pin
     $Result = @()
     $Error.Clear()
 
+    #Determine minimum and maximum of Characters, using the Math library
+    $Minimum = [math]::Pow(10,$Char-1)
+    $Maximum = [math]::Pow(10,$Char)-1
 
     if ($Count){ #If COUNT variable was provided, complete the FOR LOOP
         for ($i=1;$i -le $Count;$i++){
-            switch ($Char){
-            6 {$Result += Get-Random -Minimum 100000 -Maximum 999999}
-            7 {$Result += Get-Random -Minimum 1000000 -Maximum 9999999}
-            8 {$Result += Get-Random -Minimum 10000000 -Maximum 99999999}
-            9 {$Result += Get-Random -Minimum 100000000 -Maximum 999999999}
-            10 {$Result += Get-Random -Minimum 1000000000 -Maximum 9999999999} 
-        }
+            $Random = Get-Random -Minimum $Minimum -Maximum $Maximum
+            $Result += [math]::Round($Random)
         }
     } else { #If no COUNT variable was provided, complete the task ONCE.
-       switch ($Char){
-            6 {$Result += Get-Random -Minimum 100000 -Maximum 999999} 
-            7 {$Result += Get-Random -Minimum 1000000 -Maximum 9999999}
-            8 {$Result += Get-Random -Minimum 10000000 -Maximum 99999999}
-            9 {$Result += Get-Random -Minimum 100000000 -Maximum 999999999}
-            10 {$Result += Get-Random -Minimum 1000000000 -Maximum 9999999999} 
-        }
+       $Random = Get-Random -Minimum $Minimum -Maximum $Maximum
+       $Result += [math]::Round($Random)
     }
     return $Result
 }
