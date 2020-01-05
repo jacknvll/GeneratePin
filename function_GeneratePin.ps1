@@ -16,12 +16,12 @@ function Generate-Pin
     Param
     (
         # Define number of characters to spit out, could use a Switch statement for this one. ParameterSet as well? as it needs minimum 6 characters
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$true,Position=1)]
         [int]
         $Char,
 
         # Define number of Pins to generate. Could use a Do/While statement
-        [Parameter(Mandatory=$false)]
+        [Parameter(Mandatory=$false,Position=2)]
         [int]
         $Count
     )
