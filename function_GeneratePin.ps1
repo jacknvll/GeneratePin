@@ -11,19 +11,19 @@
 function Generate-Pin
 {
     [CmdletBinding()]
-    [Alias()]
+    [Alias('gpin')]
     [OutputType([int])]
     Param
     (
-        # Define number of characters to spit out, could use a Switch statement for this one. ParameterSet as well? as it needs minimum 6 characters
-        [Parameter(Mandatory=$true,Position=1)]
+        # Define number of characters to spit out. Default = 8
+        [Parameter(Position=1)]
         [int]
-        $Char,
+        $Char=8,
 
-        # Define number of Pins to generate. Could use a Do/While statement
-        [Parameter(Mandatory=$false,Position=2)]
+        # Define number of Pins to generate. Default number is 1
+        [Parameter(Position=2)]
         [int]
-        $Count
+        $Count=1
     )
     #Initial clearing of variables
     $Result = @()
@@ -33,15 +33,11 @@ function Generate-Pin
     $Minimum = [math]::Pow(10,$Char-1)
     $Maximum = [math]::Pow(10,$Char)-1
 
-    if ($Count){ #If COUNT variable was provided, complete the FOR LOOP
-        for ($i=1;$i -le $Count;$i++){
-            $Random = Get-Random -Minimum $Minimum -Maximum $Maximum
-            $Result += [math]::Round($Random)
-        }
-    } else { #If no COUNT variable was provided, complete the task ONCE.
-       $Random = Get-Random -Minimum $Minimum -Maximum $Maximum
-       $Result += [math]::Round($Random)
+    for ($i=1;$i -le $Count;$i++){
+    $Random = Get-Random -Minimum $Minimum -Maximum $Maximum
+    $Result += [math]::Round($Random)
     }
+
     return $Result
 }
 
